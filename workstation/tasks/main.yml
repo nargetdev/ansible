@@ -1,18 +1,18 @@
 ---
 - name: Make sure required system directories exist
   file: name={{ item }} state=directory owner={{ ansible_user_id }}
-        sudo: yes
-        with_items:
-            - /opt/rubies
+  sudo: yes
+  with_items:
+  - /opt/rubies
 
 - name: Make sure required home directories exist
   file: name={{ item }} state=directory
   with_items:
       - '{{ home }}/code'
 
-- include: redis.yml
-- include: mysql.yml
-- include: ruby.yml
+# - include: redis.yml
+# - include: mysql.yml
+# - include: ruby.yml
 
 
 - name: Install ancillary applications
