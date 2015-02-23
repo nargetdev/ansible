@@ -1,0 +1,42 @@
+---
+- name: Make sure required system directories exist
+  file: name={{ item }} state=directory owner={{ ansible_user_id }}
+        sudo: yes
+        with_items:
+            - /opt/rubies
+
+- name: Make sure required home directories exist
+  file: name={{ item }} state=directory
+  with_items:
+      - '{{ home }}/code'
+
+- include: redis.yml
+- include: mysql.yml
+- include: ruby.yml
+
+
+- name: Install ancillary applications
+  homebrew_cask: name={{ item }} state=present
+  with_items:
+      - alfred
+      - firefox
+      - google-chrome
+      - virtualbox
+      - textmate
+      - pycharm
+
+
+- name: Install required software
+  homebrew: name={{ item }} state=present
+  with_items:
+    - ack
+    - git
+    - vim
+    - bats
+    - leiningen
+
+
+
+# - include: emacs.yml
+
+# - include: pow.yml

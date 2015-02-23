@@ -1,0 +1,4 @@
+- name: install eightbitraptors emacs configuration
+  git: repo=https://github.com/eightbitraptor/dotemacs.git
+       dest={{ home }}/.emacs.d
+       update=no
