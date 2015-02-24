@@ -3,4 +3,4 @@
   connection: local
   tasks:
   - shell: echo "hello world"
-  - shell: echo "jaja"
+  - shell: say fuck my tits

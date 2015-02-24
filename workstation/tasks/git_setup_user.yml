@@ -1,0 +1,4 @@
+- name: configure git
+  shell: "{{item}}"
+  with_items:
+  - git config --global 
