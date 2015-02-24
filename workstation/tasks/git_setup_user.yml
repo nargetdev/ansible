@@ -1,4 +1,5 @@
-- name: configure git
+- name: configuring git for Nate Argetsinger - narget@umich.edu
   shell: "{{item}}"
   with_items:
-  - git config --global 
+  - git config --global user.name "Nate Argetsinger"
+  - git config --global user.email narget@umich.edu

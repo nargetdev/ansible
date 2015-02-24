@@ -63,6 +63,16 @@
   shell: if [ -f /opt/homebrew-cask/Caskroom/sublime-text3 ]; then ln -s /opt/homebrew-cask/Caskroom/sublime-text3 /bin/subl; fi
 
 
+# Set up my git environment if I passed in a var
+# - include: git_setup_user.yml
+- name: will we set up global stuffs for git
+  include: git_setup_user.yml
+  when: git_global
+
+
+
+
+
 # - name: Bootstrapping developer environment
   # hosts: all
 
@@ -94,6 +104,8 @@
 
   #tasks:
 
+
+# TODO: set conditionals to ignore stuff I already have.
 - name: Backing up existing ~/.zshrc
   action: shell if [ -f ~/.zshrc ]; then mv ~/.zshrc{,.orig}; fi
 
