@@ -1,0 +1,10 @@
+- name: unarchive solarized
+  unarchive: src=~/config/colors/solarized.zip dest=~/config/colors
+- debug: msg="yo wassup"
+
+- name: install solarized colors for iterm only if option is set
+  when: iterm_solarized
+  command: "{{ item }}"
+  with_items:
+  - open /Users/tanedev/config/colors/solarized/iterm2-colors-solarized/Solarized\ Dark.itermcolors
+  - open /Users/tanedev/config/colors/solarized/iterm2-colors-solarized/Solarized\ Light.itermcolors
