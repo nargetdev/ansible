@@ -1,3 +1,8 @@
+- name: hot additions
+  homebrew: name={{ item }} state=present
+  with_items:
+  - ctags
+
 - name: unarchive solarized
   unarchive: src=~/config/colors/solarized.zip dest=~/config/colors
 - debug: msg="yo wassup"
@@ -8,3 +13,36 @@
   with_items:
   - open /Users/tanedev/config/colors/solarized/iterm2-colors-solarized/Solarized\ Dark.itermcolors
   - open /Users/tanedev/config/colors/solarized/iterm2-colors-solarized/Solarized\ Light.itermcolors
+
+
+- name: get urls
+  get_url: url={{ item.url }} dest={{ item.dest }}
+  with_items:
+  - { url: 'http://www.apptivateapp.com/resources/Apptivate.app.zip', dest: '~/config/util'}
+
+- name: unarchive
+  unarchive: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+  - { src: '~/config/util/Apptivate.app.zip', dest: '~/config/util'}
+
+- name: link
+  command:ln -s /Users/tanedev/config/util/Apptivate.app /Applications
+
+
+# - name: powerline_fonts
+#   command: "{{ item }}"
+#   with_items:
+#   - open /Users/tanedev/config/powerline_fonts/Inconsolata/Inconsolata\ for\ Powerline.otf
+
+- debug: go into iterm prefs and configure to use patched powerline fonts
+
+# Does not work!
+# - name: updates
+  # command: brew rm neovim && brew install --HEAD neovim
+
+# - name: get propper airline/powerline running
+#   sudo: yes
+#   command: "{{item}}"
+#   with_items:
+#   - brew install python
+#   - pip install --user powerline-status
