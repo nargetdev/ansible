@@ -14,6 +14,8 @@
 # - include: mysql.yml
 # - include: ruby.yml
 
+- name: ensure cask is ready
+  shell: brew tap caskroom/cask
 
 - name: Install ancillary applications
   homebrew_cask: name={{ item }} state=present
@@ -24,7 +26,14 @@
       - virtualbox
       - textmate
       - pycharm
+      - sublime-text
+      - iterm2
 
+- name: put sublime in it's place
+  shell: sudo ln -s "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" /bin/subl  creates=/bin/subl
+
+# - name: go get JRE for pycharm
+#   get_url: force=no url=https://support.apple.com/downloads/DL1572/en_US/JavaForOSX2014-001.dmg dest=~/config
 
 - name: Install required software
   homebrew: name={{ item }} state=present
@@ -34,7 +43,11 @@
     - vim
     - bats
     - leiningen
+    - zsh
 
+- name: Change sh to zsh
+  sudo: yes
+  shell: chsh -s /bin/zsh
 
 
 # - include: emacs.yml
