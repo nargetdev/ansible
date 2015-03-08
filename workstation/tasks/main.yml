@@ -49,6 +49,10 @@
   sudo: yes
   shell: chsh -s /bin/zsh
 
+- name: get dat oh-my-zsh
+  sudo: yes
+  shell:  curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
+
 
 # - include: emacs.yml
 
