@@ -28,6 +28,10 @@
       - pycharm
       - sublime-text
       - iterm2
+      - codekit
+
+- name: activate codekit
+  pause: prompt="gvZobKg72x+rla7wxPalmW+pXQe8bVDqNuRP7oR0KYKjfXyELnPN5CVav0cM2P5YdVnlBB3jChzZeaQDULiAxOLM6Z1SbQTDQo3d3mlaGbIqWdqynDySxSROiSq5SgJlOth0TQAA5yE6hMsReYEbgkKiK9zNcfZc73RyPA8913CCCsUTrxG8e89s+0LqTBC5btLFCpuvgse5n0HgrBHV4VuCBlIbfDtezAeoapFSyFCnZ2vxrsiOTmip8ZkqlfUZa9KEj/+Ix3WjxJgIYCH8DTZ1jyI82H5xVuTIrV27V39uC96KpA3jSrg3IlYytqubGxNref7xy+g8ufBRrfmkKHoMIYZvc1GjrhLC37Qn3ZvlM2/jqjwP1QSl1pyA0XTHDTti4tnUux4SjQe5tclUDtlPL9PZ9jK6wkfsR0lgtCS3GGGtVsUs35GXQjB2BoixXivHEKBdlG9KbBDZzUNkwdYUHz3nR9zfFGBv7qt48UzcCy3Dduql0lm2m0C1mzgtl/o8Rn16qNBzVtUxdEeQgQy2Xy8apQTy5kc+z4YBt2KWaUVorW+aPImNOMz2h+k9xMiMVHSwFCwLLZq0kC67EmHFAbEkmvzJIKKpqz5/pYLcML6vS2c4Rz9W2E8GlgDMA8r/zpAIKedJQF4/oEtDuZVCzmFkEXMXycJi/RLbuHE="
 
 - name: put sublime in it's place
   shell: sudo ln -s "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" /bin/subl  creates=/bin/subl
