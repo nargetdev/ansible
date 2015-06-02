@@ -1,6 +1,0 @@
-- name: fetch Pow installer
-  get_url: url=http://get.pow.cx
-           dest=/tmp/pow-install.sh
-
-- name: install Pow
-  shell: /tmp/pow-install.sh creates={{ home }}/.pow

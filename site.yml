@@ -1,5 +1,5 @@
-- hosts: all
+- hosts: localhost
   roles:
-      - role: workstation
+      - role: common
   vars:
       - home: /Users/{{ ansible_user_id }}

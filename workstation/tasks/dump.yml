@@ -1,6 +1,0 @@
-- shell: mkdir ~/config/url creates=~/config/url
-
-- name: get urls
-  get_url: url={{ item.url }} dest={{ item.dest }}
-  with_items:
-  - { url: 'https://support.apple.com/downloads/DL1572/en_US/JavaForOSX2014-001.dmg', dest: '~/config/url'}

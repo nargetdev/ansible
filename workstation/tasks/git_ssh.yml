@@ -1,8 +1,0 @@
-- name: create ssh key
-  command: ssh-keygen -t rsa -C "narget@umich.edu" -f ~/.ssh/id_rsa
-
-- name: pipe key to clipboard
-  shell: cat ~/.ssh/id_rsa.pub | pbcopy
-
-- name: wait to put on github
-  pause: prompt="please go put the pub key in your clipboard on github"
