@@ -1,16 +1,17 @@
 ---
 
 - name: make the directories I'll get_url into
-  file: state=directory path=~/config/util
-
-- name: Make sure required home directories exist
-  file: name={{ item }} state=directory
+  file: state=directory path={{ item }}
   with_items:
-      - '{{ home }}/dev'
-      - '{{ home }}/config'
+    - '~/config/util'
+    - '~/dev'
 
-- name: clone the repo
-  git: repo=git@github.com:nargetdev/dotfiles.git dest=~/config/dotfiles clone=yes accept_hostkey=true
+#- name: Make sure required home directories exist
+#  file: name={{ item }} state=directory
+#  with_items:
+#      - '{{ home }}/dev'
+#      - '{{ home }}/config'
+
 
 - name: Install required software
   homebrew: name={{ item }} state=present
@@ -47,16 +48,14 @@
   when: ansible_os_family == "Darwin"
 
 - name: Install required software
-  apt-get: name={{ item }} state=present
+  apt: name={{ item }} state=present
+  sudo: true
   with_items:
-    - ack
     - git
     - vim
     - zsh
     - wget
-    - bats
     - leiningen
-    - processing
     - zsh
     - git
     - tmux
@@ -108,15 +107,8 @@
 
 
 
-- name: get my repos
-  git: repo=git@github.com:nargetdev/website_V3.git dest=~/ddev/web/mysite clone=yes accept_hostkey=true
-
-
-- name: grab xcode
-  git: repo={{ item.repo }} dest={{ item.dest }} clone={{ item.clone }} accept_hostkey={{ item.accept_hostkey }}
-  with_items:
-  - { repo: 'git@github.com:XVimProject/XVim.git', dest: '~/config/xcode_mod/XVim', clone: 'yes', accept_hostkey: 'true'}
-
+- name: clone the repo
+  git: repo=git@github.com:nargetdev/dotfiles.git dest=~/config/dotfiles clone=yes accept_hostkey=true
 
 
 ##########################################################################################
