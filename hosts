@@ -1,1 +1,10 @@
 localhost ansible_connection=local
+
+[caen]
+login.engin.umich.edu  ansible_connection=ssh        ansible_ssh_user=narget
+
+[website]
+nargetdev.com          ansible_connection=ssh        ansible_ssh_user=nargetde
+
+[pi]
+10.0.0.6	ansible_connection=ssh 		ansible_ssh_user=nargetde

@@ -1,0 +1,6 @@
+==> Downloading http://downloads.sourceforge.net/project/skim-app/Skim/Skim-1.4.10/Skim-1.4.10.dmg
+==> Symlinking App 'Skim.app' to '/Users/tanedev/Applications/Skim.app'
+==> Symlinking Binary 'displayline' to '/usr/local/bin/displayline'
+==> Symlinking Binary 'skimnotes' to '/usr/local/bin/skimnotes'
+==> Symlinking Binary 'skimpdf' to '/usr/local/bin/skimpdf'
+🍺  skim staged at '/opt/homebrew-cask/Caskroom/skim/1.4.10' (707 files, 11M)

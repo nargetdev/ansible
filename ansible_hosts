@@ -1,3 +1,7 @@
 127.0.0.1
+
+[caen]
 login.engin.umich.edu  ansible_connection=ssh        ansible_ssh_user=narget
+
+[website]
 nargetdev.com          ansible_connection=ssh        ansible_ssh_user=nargetde

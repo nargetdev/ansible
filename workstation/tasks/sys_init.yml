@@ -31,6 +31,9 @@
     - bats
     - leiningen
 
+    - processing
+
+
 #- name: get sum macvim
 #  shell: brew install macvim
 
@@ -57,6 +60,7 @@
       - sublime-text3
       - adobe-creative-cloud
       - iterm2
+
 
 - name: symlink sublime
   sudo: yes
@@ -91,6 +95,7 @@
   - git
   - tmux
   - htop
+  - binutils
 
 - name: Changing the default shell to zsh
   shell: chsh -s /bin/zsh

@@ -1,29 +1,19 @@
 ---
-- name: Are we initializing the whole system?
-  when: sys_init
-  include: sys_init.yml
-
-# - name: add several users
-#   user: name={{ item.name }} state=present groups={{ item.groups }}
-#   with_items:
-#     - { name: 'testuser1', groups: 'wheel' }
-#     - { name: 'testuser2', groups: 'root' }
-
-- name: make the directories I'll get_url into
-  file: state=directory path=~/config/util
-
-- name: get some urls solarized
-  get_url: url={{ item.url }} dest={{ item.dest }}
+- name: Hot adds for OS X
+  homebrew_cask: name={{ item }} state=present
   with_items:
-  - { url: 'http://ethanschoonover.com/solarized/files/solarized.zip', dest: '~/config/colors'}
-  # - { url: 'http://www.apptivateapp.com/resources/Apptivate.app.zip', dest: '~/config/util'}
+      - codekit
+      - spotify
 
-- name: git fonts for powerline
-  action: git dest=~/config/powerline_fonts repo=https://github.com/powerline/fonts.git update=no
+- name: menu - 'Register CodeKit'
+  pause: prompt="gvZobKg72x+rla7wxPalmW+pXQe8bVDqNuRP7oR0KYKjfXyELnPN5CVav0cM2P5YdVnlBB3jChzZeaQDULiAxOLM6Z1SbQTDQo3d3mlaGbIqWdqynDySxSROiSq5SgJlOth0TQAA5yE6hMsReYEbgkKiK9zNcfZc73RyPA8913CCCsUTrxG8e89s+0LqTBC5btLFCpuvgse5n0HgrBHV4VuCBlIbfDtezAeoapFSyFCnZ2vxrsiOTmip8ZkqlfUZa9KEj/+Ix3WjxJgIYCH8DTZ1jyI82H5xVuTIrV27V39uC96KpA3jSrg3IlYytqubGxNref7xy+g8ufBRrfmkKHoMIYZvc1GjrhLC37Qn3ZvlM2/jqjwP1QSl1pyA0XTHDTti4tnUux4SjQe5tclUDtlPL9PZ9jK6wkfsR0lgtCS3GGGtVsUs35GXQjB2BoixXivHEKBdlG9KbBDZzUNkwdYUHz3nR9zfFGBv7qt48UzcCy3Dduql0lm2m0C1mzgtl/o8Rn16qNBzVtUxdEeQgQy2Xy8apQTy5kc+z4YBt2KWaUVorW+aPImNOMz2h+k9xMiMVHSwFCwLLZq0kC67EmHFAbEkmvzJIKKpqz5/pYLcML6vS2c4Rz9W2E8GlgDMA8r/zpAIKedJQF4/oEtDuZVCzmFkEXMXycJi/RLbuHE="
 
-- name: sanity
-  debug: msg="is it osx?"
 
-- name: are we osx?
-  include: osx.yml
-  when: osx
+- name: get my repos
+  git: repo=git@github.com:nargetdev/website_V3.git dest=~/ddev/web/mysite clone=yes accept_hostkey=true
+
+
+- name: grab xcode
+  git: repo={{ item.repo }} dest={{ item.dest }} clone={{ item.clone }} accept_hostkey={{ item.accept_hostkey }}
+  with_items:
+  - { repo: 'git@github.com:XVimProject/XVim.git', dest: '~/config/xcode_mod/XVim', clone: 'yes', accept_hostkey: 'true'}
