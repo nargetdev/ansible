@@ -1,128 +1,13 @@
 ---
-
-- name: make the directories I'll get_url into
-  file: state=directory path={{ item }}
-  with_items:
-    - '~/config/util'
-    - '~/dev'
-
-#- name: Make sure required home directories exist
-#  file: name={{ item }} state=directory
-#  with_items:
-#      - '{{ home }}/dev'
-#      - '{{ home }}/config'
-
-
-- name: Install required software
-  homebrew: name={{ item }} state=present
-  with_items:
-    - ack
-    - git
-    - vim
-    - zsh
-    - wget
-    - macvim
-    - bats
-    - leiningen
-    - processing
-    - zsh
-    # - vim-enhanced
-    - git
-    - tmux
-    - htop
-    - binutils
-  when: ansible_os_family == "Darwin"
-
-- name: Install ancillary applications
-  homebrew_cask: name={{ item }} state=present
-  with_items:
-      - firefox
-      - google-chrome
-      - pycharm
-      - atom
-      - sublime-text3
-      - adobe-creative-cloud
-      - iterm2
-      - codekit
-      - spotify
-  when: ansible_os_family == "Darwin"
-
-- name: Install required software
-  apt: name={{ item }} state=present
-  sudo: true
-  with_items:
-    - git
-    - vim
-    - zsh
-    - wget
-    - leiningen
-    - zsh
-    - git
-    - tmux
-    - htop
+- include: debian.yml
   when: ansible_os_family == "Debian"
 
-
-- name: Get brew-cask and NEOVIM
-  shell: "{{ item }}"
-  with_items:
-    - brew install caskroom/cask/brew-cask
-    - brew tap caskroom/versions
-    - brew tap neovim/homebrew-neovim
-    - brew install --HEAD neovim
+- include: darwin.yml
   when: ansible_os_family == "Darwin"
 
-
-- name: configuring git for Nate Argetsinger - narget@umich.edu
-  shell: "{{item}}"
-  with_items:
-  - git config --global user.name "Nate Argetsinger"
-  - git config --global user.email narget@umich.edu
-
-
-
-
-- name: Determining username
-  action: shell whoami
-  register: whoami
-  sudo: False
-
-
-- name: Changing the default shell to zsh
-  shell: chsh -s /bin/zsh
-
-
-
-- name: Backing up existing ~/.zshrc but only if ~/.oh-my-zsh isn't already present
-  action: shell if [ ! -d ~/.oh-my-zsh ]; then if [ -f ~/.zshrc ]; then mv ~/.zshrc{,.orig}; fi fi
-
-
-- name: Installing oh-my-zsh (https://github.com/robbyrussell/oh-my-zsh)
-  action: git repo=https://github.com/robbyrussell/oh-my-zsh dest=~/.oh-my-zsh update=no
-
-
 - name: Installing spf13-vim, The Ultimate Vim Distribution (http://vim.spf13.com)
-#   action: shell if [ ! -d ~/.spf13-vim-3 ]; then $(curl http://j.mp/spf13-vim3 -L -o - | sh); fi
-  shell: curl http://j.mp/spf13-vim3 -L -o - | sh creates=~/.spf13-vim-3
+  shell: curl http://j.mp/spf13-vim3 -L -o - | sh     creates=~/.spf13-vim-3
 
-
-
-- name: clone the repo
-  git: repo=git@github.com:nargetdev/dotfiles.git dest=~/config/dotfiles clone=yes accept_hostkey=true
-
-
-##########################################################################################
-###############     Authentication for Git     ###########################################
-##########################################################################################
-
-- name: create ssh key
-  command: ssh-keygen -t rsa -C "narget@umich.edu" -f ~/.ssh/id_rsa
-
-- name: pipe key to clipboard
-  shell: cat ~/.ssh/id_rsa.pub | pbcopy
-
-- name: wait to put on github
-  pause: prompt="please go put the pub key in your clipboard on github"
 
 
 # Set up user
@@ -132,6 +17,50 @@
   with_items:
   - git config --global user.name "Nate Argetsinger"
   - git config --global user.email narget@umich.edu
+  - git config --global push.default simple
+
+- name: make the directories I'll get_url into
+  file: state=directory path={{ item }}
+  with_items:
+    - '~/config/util'
+    - '~/dev'
+
+
+
+
+- name: Determining username
+  action: shell whoami
+  register: whoami
+  sudo: false
+
+
+- name: Changing the default shell to zsh FOR ROOT
+  sudo: true
+  shell: chsh -s /bin/zsh
+
+- pause: chsh requires login to take effect
+
+
+- name: Backing up existing ~/.zshrc but only if ~/.oh-my-zsh isn't already present
+  action: shell if [ ! -d ~/.oh-my-zsh ]; then if [ -f ~/.zshrc ]; then mv ~/.zshrc{,.orig}; fi fi
+
+
+- name: Installing oh-my-zsh (https://github.com/robbyrussell/oh-my-zsh)
+  action: git repo=https://github.com/robbyrussell/oh-my-zsh dest=~/.oh-my-zsh update=no
+
+- name: clone the repo
+  git: repo=git@github.com:nargetdev/dotfiles.git dest=~/config/dotfiles clone=yes accept_hostkey=true
+
+- name: set up oh-my-zsh via script
+  shell: wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O - | sh
+
+- name: default oh my zsh
+  shell: cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc    creates=~/.zshrc
+
+- name: set up shell
+  shell: echo "source ~/config/dotfiles/zshrc" >> ~/.zshrc
+
+
 
 
 ##########################################################################################
@@ -147,3 +76,11 @@
 - name: git fonts for powerline
   action: git dest=~/config/powerline_fonts repo=https://github.com/powerline/fonts.git update=no
 
+- name: In
+  apt: name={{ item }} state=present
+  sudo: true
+  with_items:
+    - wget
+    - leiningen
+    - htop
+  when: ansible_os_family == "Debian"

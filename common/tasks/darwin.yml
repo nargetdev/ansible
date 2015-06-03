@@ -1,0 +1,54 @@
+- debug: msg="hello you've reached darwin"
+##########################################################################################
+###############     Authentication for Git     ###########################################
+##########################################################################################
+
+- name: create ssh key
+  command: ssh-keygen -t rsa -C "narget@umich.edu" -f ~/.ssh/id_rsa     creates=~/.ssh/id_rsa
+
+- name: pipe key to clipboard MAC
+  shell: cat ~/.ssh/id_rsa.pub | pbcopy
+
+- name: wait to put on github
+  pause: prompt="please go put the pub key in your clipboard on github"
+
+
+
+- name: Install core utilities
+  homebrew: name={{ item }} state=present
+  with_items:
+    - ack
+    - git
+    - vim
+    - zsh
+    - wget
+    - macvim
+    - bats
+    - leiningen
+    - processing
+    - tmux
+    - htop
+    - binutils
+
+- name: Install ancillary applications
+  homebrew_cask: name={{ item }} state=present
+  with_items:
+    - firefox
+    - google-chrome
+    - pycharm
+    - atom
+    - sublime-text3
+    - adobe-creative-cloud
+    - iterm2
+    - codekit
+    - spotify
+
+
+
+- name: Get brew-cask and NEOVIM
+  shell: "{{ item }}"
+  with_items:
+    - brew install caskroom/cask/brew-cask
+    - brew tap caskroom/versions
+    - brew tap neovim/homebrew-neovim
+    - brew install --HEAD neovim

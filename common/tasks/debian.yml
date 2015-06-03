@@ -1,0 +1,34 @@
+- debug: msg="hello you've reached debian"
+
+##########################################################################################
+###############     Ancillary Tasks            ###########################################
+##########################################################################################
+- name: Install ancillary utilities
+  apt: name={{ item }} state=present
+  sudo: true
+  with_items:
+    - git
+    - vim
+    - zsh
+    - wget
+    - tmux
+    - xclip
+    - curl
+
+################################################################################
+#####     Authentication for Git     ###########################################
+################################################################################
+
+- name: create ssh key
+  command: ssh-keygen -t rsa -C "narget@umich.edu" -f ~/.ssh/id_rsa     creates=~/.ssh/id_rsa
+  register: key_result
+
+- name: pipe key to clipboard UBUNTU
+  shell: cat ~/.ssh/id_rsa.pub | xclip -selection c
+
+- name: wait to put on github
+  pause: prompt="please go put the pub key in your clipboard on github"
+  when: not key_result|success
+
+- debug: msg="prompt skipped"
+  when:  key_result|skipped
