@@ -28,7 +28,7 @@
 
 - name: wait to put on github
   pause: prompt="please go put the pub key in your clipboard on github"
-  when: not key_result|success
+  when: not key_result|changed
 
 - debug: msg="prompt skipped"
   when:  key_result|skipped

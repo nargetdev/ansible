@@ -38,7 +38,6 @@
   sudo: true
   shell: chsh -s /bin/zsh
 
-- pause: chsh requires login to take effect
 
 
 - name: Backing up existing ~/.zshrc but only if ~/.oh-my-zsh isn't already present
@@ -84,3 +83,6 @@
     - leiningen
     - htop
   when: ansible_os_family == "Debian"
+
+
+- debug: chsh requires login to take effect
