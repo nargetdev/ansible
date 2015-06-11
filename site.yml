@@ -1,5 +1,9 @@
-- hosts: localhost
-  roles:
-      - role: common
-  vars:
-      - home: /Users/{{ ansible_user_id }}
+---
+# file: site.yml
+
+# running this playbook configures every machine I have access to.
+# I don't run site.yml often.
+
+- include: gui_workstation.yml
+- include: headless_workstation.yml
+- include: micro_nodes.yml # For use with RIOT nodes
