@@ -1,0 +1,15 @@
+- name: Get brew-cask and NEOVIM
+  shell: "{{ item }}"
+  with_items:
+    - brew unlink brew-cask
+    - brew install caskroom/cask/brew-cask
+    - brew tap caskroom/versions
+    - brew tap neovim/homebrew-neovim
+    - brew install --HEAD neovim
+  when: ansible_os_family == "Darwin"
+
+- name: Installing spf13-vim, The Ultimate Vim Distribution (http://vim.spf13.com)
+  shell: curl http://j.mp/spf13-vim3 -L -o - | sh     creates=~/.spf13-vim-3
+
+- name: Link in tier 0 vimrc for spf13
+  shell: echo "source ~/config/dotfiles/vimrc_1" > ~/.vimrc.local
