@@ -32,3 +32,16 @@
 
 - debug: msg="prompt skipped"
   when:  key_result|skipped
+
+################################################################################
+#####     Workstation Utilities      ###########################################
+################################################################################
+
+- name: prep for neovim
+  apt-repository: repo="ppa:neovim-ppa/unstable" state=present
+
+- name: prepare auxilliary utilities
+  apt: name={{ item }} state=present
+  sudo: true
+  with_items:
+    - neovim
