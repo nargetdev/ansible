@@ -1,0 +1,1 @@
+ansible-playbook -i hosts boot_work_desktop.yml

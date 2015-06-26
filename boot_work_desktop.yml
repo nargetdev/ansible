@@ -1,0 +1,4 @@
+- hosts: ubisoft
+  roles:
+  - common
+  - gui
