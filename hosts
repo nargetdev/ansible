@@ -8,3 +8,6 @@ nargetdev.com          ansible_connection=ssh        ansible_ssh_user=nargetde
 
 [pi]
 10.0.0.6	ansible_connection=ssh 		ansible_ssh_user=nargetde
+
+[ubisoft]
+10.144.9.27				ansible_connection=ssh 		ansible_ssh_user=nargetsinger

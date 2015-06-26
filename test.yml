@@ -1,6 +1,0 @@
----
-- hosts: localhost
-  connection: local
-  tasks:
-  - shell: echo "hello world"
-  - shell: say fuck my tits
