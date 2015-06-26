@@ -1,1 +1,1 @@
-ansible-playbook -i hosts boot_work_desktop.yml
+ansible-playbook -i hosts workstation.yml --ask-sudo-pass
