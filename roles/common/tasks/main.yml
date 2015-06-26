@@ -21,6 +21,14 @@
   sudo: false
 
 
+##########################################################################################
+###############           Flavor               ###########################################
+##########################################################################################
+- name: GET MAIN CONFIG
+  git: repo=git@github.com:nargetdev/environment.git dest=~/environment clone=yes accept_hostkey=true track_submodules=yes
+
+
+
 - name: Changing the default shell to zsh FOR ROOT
   sudo: true
   shell: chsh -s /bin/zsh
@@ -33,8 +41,6 @@
 - name: Installing oh-my-zsh (https://github.com/robbyrussell/oh-my-zsh)
   action: git repo=https://github.com/robbyrussell/oh-my-zsh dest=~/.oh-my-zsh update=no
 
-- name: clone the repo
-  git: repo=git@github.com:nargetdev/dotfiles.git dest=~/environment/dotfiles clone=yes accept_hostkey=true
 
 - name: set up oh-my-zsh via script
   shell: wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O - | sh
