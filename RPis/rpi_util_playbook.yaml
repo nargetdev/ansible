@@ -48,6 +48,12 @@
       state: "{{ item.state }}"
     with_items:
       - { name: 'tmux', state: 'present' }
+  - name: INSTALL UTILS - vncserver
+    apt:
+      name: "{{ item.name }}"
+      state: "{{ item.state }}"
+    with_items:
+      - { name: 'tightvncserver', state: 'present' }
 
   # create a directory if it doesn't exist
   ## do all the tftp setup
@@ -75,6 +81,25 @@
     with_items:
       - { command: 'chmod -R 777 /tftpboot' }
       - { command: 'chown -R nobody /tftpboot' }
+
+  - name: weaved connection
+    command: "{{ item.cmd }}"
+    with_items:
+      - { cmd: 'sudo apt-get update' }
+      - { cmd: 'sudo apt-get install weavedconnectd' }
+      - { cmd: 'sudo weavedinstaller' }
+
+  - hostname:
+    name: web01
+
+
+
+#   - name: RPi camera interface
+#   shell:
+#   git clone https://github.com/silvanmelchior/RPi_Cam_Web_Interface.git
+# cd RPi_Cam_Web_Interface
+# chmod u+x *.sh
+# ./install.sh
 
 
   ## You'll need to restart the service

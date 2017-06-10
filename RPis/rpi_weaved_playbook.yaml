@@ -1,0 +1,36 @@
+---
+- name: configure common functionality I expect in my RPi's
+  hosts: raspberries
+  remote_user: pi
+  sudo: yes
+  vars:
+    http_port: 80
+    max_clients: 200
+  tasks:
+  - name: weaved connection
+    command: "{{ item.cmd }}"
+    with_items:
+      # - { cmd: 'sudo apt-get update' }
+      - { cmd: 'sudo apt-get install weavedconnectd' }
+      # - { cmd: 'sudo weavedinstaller' } Yo! Run this one on the device
+
+  # - hostname:
+  #   name: web01
+  # - lineinfile:
+  #   path: /etc/hosts
+  #   regexp: '^127\.0\.0\.1'
+  #   line: '127.0.0.1 freedom'
+
+  ## NOTE: Hey man learn to use variables and replace freedom with that
+  - name: replace /etc/hosts 'raspberrypi'
+    replace:
+      dest: /etc/hosts
+      regexp: '\b(raspberrypi)\b'
+      replace: 'freedom'
+  - name: replace hostname 'raspberrypi'
+    replace:
+      dest: /etc/hostname
+      regexp: '\b(raspberrypi)\b'
+      replace: 'freedom'
+  - name: commit hostname changes
+    shell: sudo /etc/init.d/hostname.sh
