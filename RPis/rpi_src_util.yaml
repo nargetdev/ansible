@@ -1,0 +1,31 @@
+---
+- name: configure common functionality I expect in my RPi's
+  hosts: raspberries
+  remote_user: pi
+  sudo: yes
+  vars:
+    http_port: 80
+    max_clients: 200
+  tasks:
+  - name: get RPIO from Limuxy
+    git:
+      repo: https://github.com/limuxy/RPIO.git
+      dest: ~/SRC/UTIL
+  - name: install it
+    shell: sudo python /home/pi/SRC/UTIL/RPIO/setup.py install
+  - name: debug output
+    debug: var="{{ ansible_env.HOME}}"
+  # - name: setup open-ocd on rpi
+  #   git:
+  #       git clone git://git.code.sf.net/p/openocd/code openocd-code
+  #       install it
+  #       cd openocd-code
+  #       ./bootstrap
+  #       ./configure --enable-sysfsgpio --enable-bcm2835gpio
+  #       make
+  #       sudo make install
+  #
+  # - name: get a dhcp server
+  #   apt-get:
+  #     sudo apt-get install isc-dhcp-server
+  #

@@ -1,0 +1,13 @@
+---
+- name: configure common functionality I expect in my RPi's
+  hosts: raspberries
+  remote_user: pi
+  sudo: yes
+  vars:
+    http_port: 80
+    max_clients: 200
+  tasks:
+  - name install some prereqs for raspberry pi
+    sudo apt-get install make unrar-free autoconf automake libtool gcc g++ gperf \
+    flex bison texinfo gawk ncurses-dev libexpat-dev python-dev python python-serial \
+    sed git unzip bash help2man wget bzip2
