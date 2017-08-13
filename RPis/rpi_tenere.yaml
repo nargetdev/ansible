@@ -8,17 +8,47 @@
     max_clients: 200
   tasks:
 
+##############
+# Some precursory housekeeping...
 
-  - name: prepare interfaces file for dhcp on ethernet
-    blockinfile: |
-      dest=/etc/network/interfaces
-      block= |
-        auto eth0
-        iface eth0 inet static
-        address 192.168.42.1
-        netmask 255.255.255.0
 
-  - name: get a dhcp server running
+## Adding key access for passwordless SSH
+
+# on the RPi..
+# `$ cd ~`
+# `$ install -d -m 700 ~/.ssh`
+
+# locally
+# `$ cat ~/.ssh/id_rsa.pub | ssh pi@raspberrypi.local 'cat >> .ssh/authorized_keys'
+
+
+
+## Need to add internets
+# `$ sudo vi /etc/wpa_supplicant/wpa_supplicant`
+# network={
+# ssid="Noisebridge"
+# key_mgmt=NONE
+# }
+# network={
+# ssid="some wifi network"
+# psk="some pass"
+# }
+
+
+
+## Remember to change the password
+# `$ passwd`
+
+##############
+
+  # static dat yung ethernet
+  - name: static ethernet interface to 192.168.42.1 (act as a router)
+    copy:
+      src: configs/_-etc_-network_-interfaces
+      dest: /etc/network/interfaces
+      backup: yes
+
+  - name: Install dnsmasq to use for DHCP and TFTP
     apt:
       name: dnsmasq
       state: present
@@ -45,6 +75,20 @@
       src: configs/tftp_test.txt
       dest: /var/lib/tftp/test.txt
       backup: yes
+
+
+  - name: replace /etc/hosts 'raspberrypi'
+    replace:
+      dest: /etc/hosts
+      regexp: '\b(raspberrypi)\b'
+      replace: 'tenere'
+  - name: replace hostname 'raspberrypi'
+    replace:
+      dest: /etc/hostname
+      regexp: '\b(raspberrypi)\b'
+      replace: 'tenere'
+  - name: commit hostname changes
+    shell: sudo /etc/init.d/hostname.sh
 
 
   # - name: configure terminal coms

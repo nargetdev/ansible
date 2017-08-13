@@ -1,2 +1,2 @@
 #!/bin/bash
-ansible-playbook rpi_util_playbook.yaml -i raspberries
+ansible-playbook rpi_tenere.yaml -i raspberries
