@@ -27,6 +27,27 @@
       name: dnsmasq
       state: present
 
+  # dnsmasq can also serve tftp
+
+  - name: insert/update configuration using a local file
+    copy:
+      src: configs/_-etc_-xinetd.d_-tftp
+      dest: /etc/xinetd.d/tftp
+
+  - name: make the tftpboot dir
+    file:
+      path: /tftpboot
+      state: directory
+
+  - name: Run a command using a templated variable (always use quote filter to avoid injection)
+    shell: "{{ item.command }}"
+    with_items:
+      - { command: 'chmod -R 777 /tftpboot' }
+      - { command: 'chown -R nobody /tftpboot' }
+      - { command: 'sudo /etc/init.d/xinetd stop' }
+      - { command: 'sudo /etc/init.d/xinetd start' }
+
+
   # - name: configure interfaces file for dhcp on ethernet
   #   blockinfile: |
   #     dest=/etc/network/interfaces
@@ -64,10 +85,10 @@
     # apt:
     #   name: tftp
     #   state: present
-    with_items:
-      - { name: 'xinetd', state: 'present' }
-      - { name: 'tftpd', state: 'present' }
-      - { name: 'tftp', state: 'present' }
+    # with_items:
+    #   - { name: 'xinetd', state: 'present' }
+    #   - { name: 'tftpd', state: 'present' }
+    #   - { name: 'tftp', state: 'present' }
 
   - name: INSTALL UTILS - tmux
     apt:
@@ -98,23 +119,6 @@
       - { path: '/etc/xinetd.d', state: 'directory' }
       - { path: '/etc/xinetd.d/tftp', state: 'touch' }
 
-  - name: insert/update configuration using a local file
-    copy:
-      src: configs/_-etc_-xinetd.d_-tftp
-      dest: /etc/xinetd.d/tftp
-
-  - name: make the tftpboot dir
-    file:
-      path: /tftpboot
-      state: directory
-
-  - name: Run a command using a templated variable (always use quote filter to avoid injection)
-    shell: "{{ item.command }}"
-    with_items:
-      - { command: 'chmod -R 777 /tftpboot' }
-      - { command: 'chown -R nobody /tftpboot' }
-      - { command: 'sudo /etc/init.d/xinetd stop' }
-      - { command: 'sudo /etc/init.d/xinetd start' }
 
   # - name: Install RPIO
   #   easy_install:

@@ -1,0 +1,4 @@
+sudo apt-get install tshark
+
+
+run the script .. https://github.com/cloudshark/cloudshark-capture/archive/master.zip 

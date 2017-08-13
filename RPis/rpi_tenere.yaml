@@ -1,0 +1,153 @@
+---
+- name: functionality for Tenere
+  hosts: raspberries
+  remote_user: pi
+  sudo: yes
+  vars:
+    http_port: 80
+    max_clients: 200
+  tasks:
+
+
+  - name: prepare interfaces file for dhcp on ethernet
+    blockinfile: |
+      dest=/etc/network/interfaces
+      block= |
+        auto eth0
+        iface eth0 inet static
+        address 192.168.42.1
+        netmask 255.255.255.0
+
+  - name: get a dhcp server running
+    apt:
+      name: dnsmasq
+      state: present
+
+
+
+  # dnsmasq can also serve tftp
+  - name: create and configure dnsmasq config file
+    copy:
+      src: configs/_-etc_-dnsmasq.conf
+      dest: /etc/dnsmasq.conf
+      backup: yes
+
+  # Create the tftp dir
+
+  - name: make the tftpboot dir
+    file:
+      path: /var/lib/tftp
+      state: directory
+  #     - { path: '/etc/xinetd.d/tftp', state: 'touch' }
+
+  - name: create and configure dnsmasq config file
+    copy:
+      src: configs/tftp_test.txt
+      dest: /var/lib/tftp/test.txt
+      backup: yes
+
+
+  # - name: configure terminal coms
+  #   apt:
+  #     name: picocom
+  #     state: present
+
+
+
+
+  ### END
+
+  # - name: TODO - restart networking on reboot
+  #   shell: "{{ item.command }}"
+  #   with_items:
+  #     - { command: 'sudo service networking restart' }
+  #     - { command: 'sudo service dnsmasq restart' }
+
+
+  # - name: Run a command using a templated variable (always use quote filter to avoid injection)
+  #   shell: "{{ item.command }}"
+  #   with_items:
+  #     - { command: 'chmod -R 777 /tftpboot' }
+  #     - { command: 'chown -R nobody /tftpboot' }
+  #     - { command: 'sudo /etc/init.d/xinetd stop' }
+  #     - { command: 'sudo /etc/init.d/xinetd start' }
+  #
+
+
+
+
+  # - name: get a tftp server running
+  #   apt:
+  #     name: "{{ item.name }}"
+  #     state: "{{ item.state }}"
+  #   with_items:
+  #   - { name: 'tftpd', state: 'present' }
+  #   - { name: 'tftp', state: 'present' }
+  #   # apt:
+  #   #   name: tftpd
+  #   #   state: present
+  #   # apt:
+  #   #   name: tftp
+  #   #   state: present
+
+
+  # - name: INSTALL UTILS - tmux
+  #   apt:
+  #     name: "{{ item.name }}"
+  #     state: "{{ item.state }}"
+  #   with_items:
+  #     - { name: 'tmux', state: 'present' }
+  #     - { name: 'python-setuptools', state: 'present' }
+  #     - { name: 'python-dev', state: 'present' }
+  #     - { name: 'python3-dev', state: 'present' }
+  #     - { name: 'telnet', state: 'present' }
+
+  # - name: INSTALL UTILS - vncserver
+  #   apt:
+  #     name: "{{ item.name }}"
+  #     state: "{{ item.state }}"
+  #   with_items:
+  #     - { name: 'tightvncserver', state: 'present' }
+  #
+  # create a directory if it doesn't exist
+  ## do all the tftp setup
+  # - name: make config
+  #   file:
+  #     path: "{{ item.path }}"
+  #     state: "{{ item.state }}"
+  #   with_items:
+  #     # - { path: '/etc/dhcp/dhcpd.conf', state: 'directory' }
+  #     - { path: '/etc/xinetd.d', state: 'directory' }
+  #     - { path: '/etc/xinetd.d/tftp', state: 'touch' }
+
+
+  # - name: Install RPIO
+  #   easy_install:
+  #     name: RPIO
+
+
+  # - name: getting openocd running on rpi
+
+
+#   - name: RPi camera interface
+#   shell:
+#   git clone https://github.com/silvanmelchior/RPi_Cam_Web_Interface.git
+# cd RPi_Cam_Web_Interface
+# chmod u+x *.sh
+# ./install.sh
+
+
+
+  # - file exists: touch /etc/xinetd.d/tftp
+  #   /etc/xinetd.d/tftp
+  # - name: ensure apache is at the latest version
+  #   yum: name=httpd state=latest
+  # - name: write the apache config file
+  #   template: src=/srv/httpd.j2 dest=/etc/httpd.conf
+  #   notify:
+  #   - restart apache
+  # - name: ensure apache is running (and enable it at boot)
+  #   service: name=httpd state=started enabled=yes
+  # handlers:
+  #   - name: restart apache
+  #     service: name=httpd state=restarted
