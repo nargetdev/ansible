@@ -1,0 +1,11 @@
+---
+- name: configure common functionality I expect in my RPi's
+  hosts: raspberries
+  remote_user: pi
+  become: yes
+  vars:
+    http_port: 80
+    max_clients: 200
+  tasks:
+
+# follow instructions here: https://github.com/foosel/netconnectd

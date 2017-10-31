@@ -1,1 +1,1 @@
-ansible-playbook -i hosts workstation.yml --ask-sudo-pass
+ansible-playbook -i RPis/testing workstation.yml --ask-become-pass

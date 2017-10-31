@@ -1,0 +1,29 @@
+---
+- name: bootstrap a basic bash shell environment
+  hosts: workstation (laptop)
+  sudo: yes
+  vars:
+    http_port: 80
+    max_clients: 200
+  tasks:
+
+  - name: make directory structure
+    file:
+      path: "{{ item.path }}"
+      state: "{{ item.state }}"
+    with_items:
+      - { path: '~/DEV', state: 'directory' }
+      - { path: '~/DEV/TOOLS', state: 'directory' }
+      - { path: '~/DEV/CAREER', state: 'directory' }
+      - { path: '~/DEV/CAREER/MESHCANDY', state: 'directory' }
+      - { path: '~/DEV/CAREER/SYMMETRYLABS', state: 'directory' }
+
+  # role - get ahold of development dependencies for arm development
+  # arm-none-eabi
+
+  - name: INSTALL UTILS - tmux
+    apt:
+      name: "{{ item.name }}"
+      state: "{{ item.state }}"
+    with_items:
+      - { name: 'tmux', state: 'present' }
