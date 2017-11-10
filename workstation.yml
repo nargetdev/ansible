@@ -1,13 +1,20 @@
-- hosts: raspberries
+- hosts: localhost
   vars:
     HOME_PATH: "/mnt/c/Users/narge"
     CAREER_PATH: "/mnt/c/Users/narge/DEV/CAREER"
   become: yes
   roles:
-  #- directories_and_nav
+  # - directories_and_nav
+  # - ansible-role-atom
+  - role: ansible-role-atom-packages
+    users:
+      - username: nathan
+        atom_packages:
+          - processing-language
+  #- codeine
   #- common
   #- gui
   #- ARM_devel
   #- MESHCANDY_DEV
   #- RPi_Meshcandy
-  - RPi_symmetry
+  #- RPi_symmetry
