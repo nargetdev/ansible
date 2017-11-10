@@ -1,0 +1,114 @@
+- hosts: localhost
+  connection: local
+  gather_facts: no           
+  become: no
+  vars:
+    homebrew_taps:
+      - homebrew/binary
+      - homebrew/dupes
+      - caskroom/cask
+      - railwaycat/emacsmacport
+      - sanemat/font
+    homebrew_packages:
+      - { name: zsh }
+      - { name: picocom }
+      #- { name: readline }
+      #- { name: openssl }
+      #- { name: openssl, state: linked, install_options: force }
+      #- { name: python }
+      #- { name: ansible }
+      #- { name: git }
+      #- { name: zsh, install_options: disable-etcdir }
+      #- { name: wget }
+      #- { name: curl }
+      #- { name: cmake }
+      #- { name: autoconf }
+      #- { name: automake }
+      #- { name: pkg-config }
+      #- { name: ctags }
+      #- { name: tree }
+      #- { name: lv }
+      #- { name: nkf }
+      #- { name: direnv }
+      #- { name: rbenv }
+      #- { name: ruby-build }
+    homebrew_cask_apps:
+      #- { name: firefox }
+      - { name: google-chrome }
+      #- { name: adobe-reader }
+      #- { name: java }
+      - { name: skype }
+      - { name: slack }
+      - { name: atom }
+      - { name: caffeine } 
+      - { name: alfred }
+  tasks:
+  - debug:
+      msg: "System {{ item }}"
+    with_items: "{{homebrew_taps}}"
+
+  # Tap.
+  - name: Ensure configured taps are tapped.
+    homebrew_tap:
+      tap: "{{ item }}"
+      state: present
+    with_items: "{{ homebrew_taps }}"
+    when: False
+
+  # Brew.
+  - name: Ensure configured homebrew packages are installed.
+    homebrew:
+      name: "{{ item.name | default(item) }}"
+      install_options: "{{ item.install_options | default(omit) }}"
+      state: present
+    with_items: "{{ homebrew_packages }}"
+
+  # Cask.
+  - name: Install configured cask applications.
+    homebrew_cask:
+      name: "{{ item.name }}"
+      state: present
+      install_options: "appdir=/Applications"
+    with_items: "{{ homebrew_cask_apps }}"
+
+
+#  — name: tap some stuff
+#    homebrew_tap:
+#      name: "{{ item }}"
+#    with_items: "{{homebrew_taps}}"
+#  - name: homebrew update
+#    homebrew: update_homebrew=yes
+##  # brew
+#  — name: brew install packages
+#    homebrew: >
+#    name="{{ item.name }}"
+#    state="{{ item.state | default(‘latest’) }}"
+#    install_options="{{
+#    item.install_options | default() | join(‘,’)
+#    if item.install_options is not string
+#    else item.install_options
+#    }}"
+#    with_items: "{{ homebrew_packages }}"
+#    register: brew_result
+# — name: brew mkdir directory for packages info
+# file: path=brew_info state=directory
+# — name: brew save info
+# shell: brew info {{ item }} > brew_info/{{ item }}
+# with_items: brew_result.results | selectattr(‘changed’) | map(attribute=’item’) | map(attribute=’name’) | list
+## cask
+# — name: install homebrew-cask
+# homebrew: name=brew-cask state=latest
+# — name: install cask packages
+# homebrew_cask: name={{ item.name }} state={{ item.state|default(‘installed’) }}
+# with_items: homebrew_cask_packages
+# register: cask_result
+# — name: cask mkdir for package info
+# file: path=cask_info state=directory
+# — name: cask save info
+# shell: brew cask info {{ item }} > cask_info/{{ item }}
+# with_items: cask_result.results | selectattr(‘changed’) | map(attribute=’item’) | map(attribute=’name’) | list
+## oh-my-zsh
+# — name: install oh-my-zsh
+# shell: curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
+# args:
+# creates: ~/.oh-my-zsh/
