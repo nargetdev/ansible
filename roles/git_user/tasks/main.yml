@@ -1,0 +1,12 @@
+---
+# tasks file for git_user
+
+- git_config:
+    name: user.email
+    scope: global
+    value: "{{ git_user['user']['email'] }}"
+
+- git_config:
+    name: user.name
+    scope: global
+    value: "{{ git_user['user']['name'] }}"

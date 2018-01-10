@@ -1,0 +1,10 @@
+{
+    "somevar": "varval",
+    "someint": 42,
+    "git_user":{
+        "user":{
+            "email": "your@Email.com",
+            "name": "yourusername"
+        }
+    }
+}
