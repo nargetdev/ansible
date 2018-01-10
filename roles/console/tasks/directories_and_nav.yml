@@ -1,0 +1,18 @@
+---
+  ###
+  ###
+  ###
+  # This file is to bootstrap a meshcandy workstation
+  ###
+  ###
+  ###
+- name: make directory structure
+  file:
+    path: "{{ item.path }}"
+    state: "{{ item.state }}"
+  with_items:
+    - { path: '{{ ansible_env.HOME }}/DEV', state: 'directory' }
+    - { path: '{{ ansible_env.HOME }}/DEV/INFRASTRUCTURE_AUTOMATION', state: 'directory' }
+
+# ----------- aliases ----------- #
+# - name: add aliases for navigation

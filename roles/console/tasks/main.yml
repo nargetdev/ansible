@@ -1,0 +1,12 @@
+---
+# entry point for "console" role Tasks
+
+- debug:
+    msg: "Installing a shell.. or two"
+    
+- import_tasks: shell.yml
+
+- debug:
+    msg: "creating directories and navigation"
+
+- import_tasks: directories_and_nav.yml

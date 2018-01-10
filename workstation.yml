@@ -1,17 +1,23 @@
 - hosts: localhost
-  vars:
-    HOME_PATH: "/mnt/c/Users/narge"
-    CAREER_PATH: "/mnt/c/Users/narge/DEV/CAREER"
-  become: yes
+  # vars:
+  #   HOME_PATH: "/mnt/c/Users/narge"
+  #   CAREER_PATH: "/mnt/c/Users/narge/DEV/CAREER"
+  # become: nateargetsinger
   roles:
-  # - directories_and_nav
+  - ansible_developer
+  # - console
   # - ansible-role-atom
-  - role: ansible-role-atom-packages
-    users:
-      - username: nathan
-        atom_packages:
-          - processing-language
-  #- codeine
+  # - role: ansible-role-atom-packages
+  #   users:
+  #     - username: nathan
+  #       atom_packages:
+  #         - processing
+  #         - processing-language
+  #         - build-make
+  #         - make
+  #- role: remot3_fleet
+  # - kylebebak.tmux
+  # - codeine
   #- common
   #- gui
   #- ARM_devel

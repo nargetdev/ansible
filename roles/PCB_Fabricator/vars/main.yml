@@ -1,0 +1,4 @@
+---
+# vars file for PCB_Fabricator
+homebrew_cask_apps:
+  - { name: kicad }
