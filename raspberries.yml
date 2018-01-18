@@ -1,0 +1,13 @@
+- hosts: raspberries
+  vars:
+    HOME_PATH: "/mnt/c/Users/narge"
+    CAREER_PATH: "/mnt/c/Users/narge/DEV/CAREER"
+  become: yes
+  roles:
+  #- directories_and_nav
+  #- common
+  #- gui
+  #- ARM_devel
+  #- MESHCANDY_DEV
+  #- RPi_Meshcandy
+  - RPi_symmetry

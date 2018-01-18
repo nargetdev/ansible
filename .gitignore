@@ -2,3 +2,7 @@
 sftp-config.json
 *~
 *.swp
+
+*.retry
+.vscode
+software_packages

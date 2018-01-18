@@ -1,0 +1,6 @@
+- pip:
+    name: "{{item}}"
+  with_items:
+    - bottle
+    - httplib2
+    - requests

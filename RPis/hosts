@@ -2,3 +2,5 @@
 entropy.local
 davinci.local
 raspberrypi.local
+
+bedroom2_node ansible_ssh_user=pi hostname=bedroom2_node
