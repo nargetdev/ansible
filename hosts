@@ -1,4 +1,1 @@
 localhost ansible_connection=local
-
-[website]
-nargetdev.com          ansible_connection=ssh        ansible_ssh_user=nargetde

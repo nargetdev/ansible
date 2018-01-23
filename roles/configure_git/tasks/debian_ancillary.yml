@@ -1,0 +1,37 @@
+- debug: msg="hello you've reached debian"
+
+################################################################################
+#####     Authentication for Git     ###########################################
+################################################################################
+
+# - name: create ssh key
+#   command: ssh-keygen -t rsa -C "narget@umich.edu" -f ~/.ssh/id_rsa     creates=~/.ssh/id_rsa
+#   register: key_result
+
+  
+# # install a text editor
+
+# # You're gonna need this to get into github
+
+- name: Generate SSH keys with no password and without user intervention
+  shell: ssh-keygen -b 2048 -t rsa -f '{{ansible_env.HOME}}'/.ssh/id_rsa -q -N ""
+  args:
+    creates: '{{ansible_env.HOME}}/.ssh/id_rsa'
+  register: key_result
+
+- name: pipe key to stdout
+  shell: cat ~/.ssh/id_rsa.pub
+
+- name: wait to put on github
+  pause: prompt="please go put ^^that pub key in your clipboard on github"
+  when: not key_result|changed
+
+- debug: msg="prompt skipped"
+  when:  key_result|skipped
+
+- name: configuring git for Nate Argetsinger - narget@umich.edu
+  shell: "{{item}}"
+  with_items:
+  - git config --global user.name "Nate Argetsinger"
+  - git config --global user.email narget@umich.edu
+  - git config --global push.default simple

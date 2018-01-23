@@ -6,14 +6,6 @@
   ###
   ### ===== ===== ===== ===== ===== ===== ===== ===== =====
 
-# install a text editor
-
-# You're gonna need this to get into github
-
-- name: Generate SSH keys
-  shell: ssh-keygen -b 2048 -t rsa -f '{{ansible_env.HOME}}'/.ssh/id_rsa -q -N ""
-  args:
-    creates: '{{ansible_env.HOME}}/.ssh/id_rsa'
 
 # ----------- install a shell or two ----------- #
 

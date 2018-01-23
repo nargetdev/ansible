@@ -1,0 +1,11 @@
+---
+- include_tasks: debian_ancillary.yml
+  when: ansible_os_family == "Debian"
+
+- include_tasks: darwin_ancillary.yml
+  when: ansible_os_family == "Darwin"
+
+- name: Determining username
+  action: shell whoami
+  register: whoami
+  sudo: false
