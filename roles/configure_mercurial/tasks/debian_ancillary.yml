@@ -1,0 +1,10 @@
+- debug: msg="hello you've reached debian MERCURIAL SETUP"
+
+################################################################################
+#####    get mercurial     ###########################################
+################################################################################
+- name: apt get mercurial
+  apt: name={{ item }} state=present
+  become: true
+  with_items:
+    - mercurial

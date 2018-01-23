@@ -4,7 +4,8 @@
   #   CAREER_PATH: "/mnt/c/Users/narge/DEV/CAREER"
   # become: nateargetsinger
   roles:
-  - configure_git
+  #- configure_git
+    - configure_mercurial
   # - ansible_developer
   # - console
   # - ansible-role-atom

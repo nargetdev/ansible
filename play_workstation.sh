@@ -1,2 +1,1 @@
-# ansible-playbook -i hosts workstation.yml --ask-become-pass
-ansible-playbook -i hosts workstation.yml
+ansible-playbook -i hosts workstation.yml --ask-become-pass

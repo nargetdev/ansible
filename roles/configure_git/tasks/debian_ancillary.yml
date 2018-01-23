@@ -19,12 +19,15 @@
     creates: '{{ansible_env.HOME}}/.ssh/id_rsa'
   register: key_result
 
-- name: pipe key to stdout
-  shell: cat ~/.ssh/id_rsa.pub
+- name: display key
+  debug:
+    msg:
+      - "the value of key is:"
+      - "{{lookup('file', '~/.ssh/id_rsa.pub') }}"
 
 - name: wait to put on github
   pause: prompt="please go put ^^that pub key in your clipboard on github"
-  when: not key_result|changed
+  # when: not key_result|changed
 
 - debug: msg="prompt skipped"
   when:  key_result|skipped
