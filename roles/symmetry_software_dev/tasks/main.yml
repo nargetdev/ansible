@@ -1,0 +1,12 @@
+---
+# tasks file for symmetry_software_dev
+
+- file:
+    path: "{{symmetry['root']}}/SOFTWARE"
+    state: directory
+    mode: 0755
+
+- file:
+    path: "{{symmetry['root']}}/SOFTWARE/from_AWX"
+    state: directory
+    mode: 075
