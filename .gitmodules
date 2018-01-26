@@ -10,3 +10,9 @@
 [submodule "roles/ansible-role-slack"]
 	path = roles/ansible-role-slack
 	url = https://github.com/wtanaka/ansible-role-slack.git
+[submodule "meshcandy_firmware_dev"]
+	path = meshcandy_firmware_dev
+	url = /Users/nateargetsinger/ansible/roles/meshcandy_firmware_dev
+[submodule "roles/meshcandy_firmware_dev"]
+	path = roles/meshcandy_firmware_dev
+	url = /Users/nateargetsinger/ansible/roles/meshcandy_firmware_dev

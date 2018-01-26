@@ -1,6 +1,18 @@
 ---
-- include_tasks: debian_ancillary.yml
-  when: ansible_os_family == "Debian"
+- name: display key
+  debug:
+    msg:
+      - "the value of key is:"
+      - "{{lookup('file', '~/.ssh/id_rsa.pub') }}"
 
-- include_tasks: darwin_ancillary.yml
-  when: ansible_os_family == "Darwin"
+- name: wait to put on bitbucket
+  pause: prompt="please go put ^^that pub key in your clipboard on bitbucket"
+  # when: not key_result|changed
+
+# - debug: msg="prompt skipped"
+#   when:  key_result|skipped
+# - include_tasks: debian_ancillary.yml
+#   when: ansible_os_family == "Debian"
+
+# - include_tasks: darwin_ancillary.yml
+#   when: ansible_os_family == "Darwin"
