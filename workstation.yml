@@ -4,7 +4,8 @@
   #   CAREER_PATH: "/mnt/c/Users/narge/DEV/CAREER"
   # become: nateargetsinger
   roles:
-  - meshcandy_firmware_dev
+  - network_configurator
+  # - meshcandy_firmware_dev
   #- configure_git
   # - configure_mercurial
   # - ansible_developer

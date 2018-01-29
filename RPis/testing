@@ -1,4 +1,0 @@
-[raspberries]
-#192.168.42.129 ansible_ssh_user=pi hostname=symmetry
-#192.168.42.149 ansible_ssh_user=pi hostname=pelican
-192.168.1.182 ansible_ssh_user=pi hostname=symmetry_office
