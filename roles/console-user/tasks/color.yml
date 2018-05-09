@@ -1,0 +1,23 @@
+---
+##########################################################################################
+###############           Flavor               ###########################################
+##########################################################################################
+- name: make directory structure
+  file:
+    path: "{{ item.path }}"
+    state: "{{ item.state }}"
+  with_items:
+    - { path: '~/environment', state: 'directory' }
+    - { path: '~/environment/colors', state: 'directory' }
+  tags:
+    - test
+
+- name: get some urls solarized
+  get_url: url={{ item.url }} dest={{ item.dest }}
+  with_items:
+  - { url: 'http://ethanschoonover.com/solarized/files/solarized.zip', dest: '~/environment/colors'}
+  tags:
+    - test
+
+- debug:
+    msg: NOTE that chsh requires login to take effect

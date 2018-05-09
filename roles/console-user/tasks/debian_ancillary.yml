@@ -1,0 +1,15 @@
+- debug: msg="hello you've reached debian"
+
+##########################################################################################
+###############     Ancillary Tasks            ###########################################
+##########################################################################################
+- name: Install ancillary utilities
+  apt: name={{ item }} state=present
+  become: true
+  with_items:
+    - git
+    - zsh
+    - wget
+    - tmux
+    - xclip
+    - curl

@@ -1,15 +1,19 @@
-- hosts: localhost
-  vars:
-    HOME_PATH: "{{ ansible_env.HOME }}"
+---
+# - hosts: 127.0.0.1
+#   connection: local
+- hosts: workstation
+  # vars:
+  #   HOME_PATH: "{{ ansible_env.HOME }}"
   #   CAREER_PATH: "/mnt/c/Users/narge/DEV/CAREER"
   # become: nateargetsinger
   roles:
-  - network_configurator
+    # - common
+    # - grav_web_dev
+    - gitter
+    - console-user
   # - meshcandy_firmware_dev
-  #- configure_git
   # - configure_mercurial
   # - ansible_developer
-  # - console
   # - ansible-role-atom
   # - role: ansible-role-atom-packages
   #   users:
@@ -19,10 +23,9 @@
   #         - processing-language
   #         - build-make
   #         - make
-  #- role: remot3_fleet
+  # - role: remot3_fleet
   # - kylebebak.tmux
   # - codeine
-  #- common
   #- gui
   #- ARM_devel
   #- MESHCANDY_DEV

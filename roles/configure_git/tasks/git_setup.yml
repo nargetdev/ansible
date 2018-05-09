@@ -1,6 +1,0 @@
-- name: configuring git for Nate Argetsinger - narget@umich.edu
-  shell: "{{item}}"
-  with_items:
-  - git config --global user.name "Nate Argetsinger"
-  - git config --global user.email narget@umich.edu
-  - git config --global push.default simple

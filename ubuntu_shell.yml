@@ -1,7 +1,7 @@
 ---
 - name: bootstrap a basic bash shell environment
-  hosts: workstation (laptop)
-  sudo: yes
+  hosts: workstation
+  become: yes
   vars:
     http_port: 80
     max_clients: 200

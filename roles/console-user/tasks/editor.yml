@@ -1,0 +1,23 @@
+---
+- apt_repository:
+    repo: "ppa:neovim-ppa/stable"
+    state: present
+  become: true
+
+- name: prepare auxilliary utilities
+  apt: name={{ item }} state=present update_cache=yes
+  become: true
+  with_items:
+    - neovim
+  tags:
+    - test
+
+
+
+
+#
+# ─── OTHER ──────────────────────────────────────────────────────────────────────
+#
+# - name: Installing spf13-vim, The Ultimate Vim Distribution (http://vim.spf13.com)
+#   shell: curl http://j.mp/spf13-vim3 -L -o - | sh     creates=~/.spf13-vim-3
+

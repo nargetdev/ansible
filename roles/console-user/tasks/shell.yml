@@ -22,11 +22,13 @@
   when: ansible_os_family == "Darwin"
 
 
-- name: Install tmux and git on Debian systems
+- name: Install tmux, git, fish, zsh on Debian systems
   apt: name={{ item }} state=present
   with_items:
     - tmux
     - git
+    - fish
+    - zsh
   when: ansible_os_family == "Debian"
   become: true
 
@@ -38,7 +40,9 @@
     creates: ~/.local/share/omf
 
 
-# Get Oh My Zsh
-# You can also use the 'args' form to provide the options.
-- name: Get oh my zsh and only run when ~/.omf dir doesn't already exist.
-  shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+- import_tasks: setup_zsh.yml
+
+
+- name: remap caps-lock to control
+  shell: setxkbmap -option caps:ctrl_modifier
+  #when: os is ubuntu

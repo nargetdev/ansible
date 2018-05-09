@@ -1,0 +1,38 @@
+---
+# Get Oh My Zsh
+# You can also use the 'args' form to provide the options.
+- debug: msg="{{ lookup('env','USER') }}"
+  tags:
+    - test
+
+- name: Changing the default shell to zsh for user "{{ lookup('env','USER') }}"
+  user:
+    name: "{{ lookup('env','USER') }}"
+    shell: /bin/zsh 
+  tags:
+    - test
+
+- debug: msg="OK shell updated to /bin/zsh changes take effect ON NEXT LOGIN"
+
+- name: Get oh my zsh and only run when ~/.omz dir doesn't already exist.
+  shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+
+- name: Backing up existing ~/.zshrc but only if ~/.oh-my-zsh isn't already present
+  action: shell if [ ! -d ~/.oh-my-zsh ]; then if [ -f ~/.zshrc ]; then mv ~/.zshrc{,.orig}; fi fi
+
+
+- name: Installing oh-my-zsh (https://github.com/robbyrussell/oh-my-zsh)
+  action: git repo=https://github.com/robbyrussell/oh-my-zsh dest=~/.oh-my-zsh update=no
+
+
+- name: set up oh-my-zsh via script
+  shell: wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O - | sh
+
+- name: default oh my zsh
+  shell: cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc    creates=~/.zshrc
+
+- name: set up shell
+  shell: echo "source ~/environment/dotfiles/zshrc" >> ~/.zshrc
+
+

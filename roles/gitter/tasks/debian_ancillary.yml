@@ -19,6 +19,9 @@
     creates: '{{ansible_env.HOME}}/.ssh/id_rsa'
   register: key_result
 
+- name: pipe key to clipboard UBUNTU
+  shell: cat ~/.ssh/id_rsa.pub | xclip -selection c
+
 - name: display key
   debug:
     msg:
@@ -27,10 +30,10 @@
 
 - name: wait to put on github
   pause: prompt="please go put ^^that pub key in your clipboard on github"
-  # when: not key_result|changed
+  when: key_result.changed
 
 - debug: msg="prompt skipped"
-  when:  key_result|skipped
+  when:  key_result is succeeded
 
 - name: configuring git for Nate Argetsinger - narget@umich.edu
   shell: "{{item}}"

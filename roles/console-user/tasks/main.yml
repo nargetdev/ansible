@@ -1,6 +1,13 @@
 ---
 # entry point for "console" role Tasks
 
+- include: debian_ancillary.yml
+  when: ansible_os_family == "Debian"
+
+- include: darwin_ancillary.yml
+  when: ansible_os_family == "Darwin"
+
+
 - debug:
     msg: "Installing a shell.. or two"
     
@@ -10,3 +17,8 @@
     msg: "creating directories and navigation"
 
 - import_tasks: directories_and_nav.yml
+
+
+- import_tasks: editor.yml
+
+- import_tasks: color.yml

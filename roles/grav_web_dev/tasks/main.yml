@@ -1,0 +1,23 @@
+---
+# tasks file for grav_web_dev
+
+- name: get the website we're developing
+  git:
+    repo: 'https://github.com/KanekaLanguage/Kaneka-Website.git'
+    dest: '{{ web_root }}/Kaneka-Website'
+
+- name: requirements (php really)
+  apt: name={{ item }} state=present
+  become: true
+  with_items:
+    - php
+    - libapache2-mod-php
+    - php-mcrypt
+    - php-mysql
+
+- name: install composer
+  shell: curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+
+- name: installing grav..
+  shell:
+    "{{ web_root }}/Kaneka-Website/bin/grav install"

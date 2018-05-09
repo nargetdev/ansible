@@ -1,0 +1,8 @@
+[workstation:vars]
+#ansible_user=nathan  # ssh login user
+#ansible_become=yes  # use sudo 
+#ansible_become_method=sudo 
+#ansible_become_pass='{{ my_vaulted_sudo_pass }}'
+
+[workstation]
+localhost ansible_connection=local
