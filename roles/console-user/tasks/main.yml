@@ -21,4 +21,4 @@
 
 - import_tasks: editor.yml
 
-- import_tasks: color.yml
+- import_tasks: environment.yml

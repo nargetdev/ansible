@@ -2,15 +2,11 @@
 # Get Oh My Zsh
 # You can also use the 'args' form to provide the options.
 - debug: msg="{{ lookup('env','USER') }}"
-  tags:
-    - test
 
 - name: Changing the default shell to zsh for user "{{ lookup('env','USER') }}"
   user:
     name: "{{ lookup('env','USER') }}"
     shell: /bin/zsh 
-  tags:
-    - test
 
 - debug: msg="OK shell updated to /bin/zsh changes take effect ON NEXT LOGIN"
 

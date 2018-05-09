@@ -3,9 +3,3 @@
 #   file: state=directory path={{ item }}
 #   with_items:
 #     - '~/environment/util'
-
-##########################################################################################
-###############           Primary:               ###########################################
-##########################################################################################
-- name: GET MAIN CONFIG
-  git: repo=git@github.com:nargetdev/environment.git dest=~/environment clone=yes accept_hostkey=true track_submodules=yes

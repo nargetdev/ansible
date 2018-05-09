@@ -1,0 +1,14 @@
+---
+##########################################################################################
+###############           Primary:               ###########################################
+##########################################################################################
+- name: GET MAIN CONFIG
+  git:
+    repo: git@github.com:nargetdev/environment.git
+    dest: ~/environment
+    clone: yes
+    # track_submodules: yes
+  tags:
+    - test
+
+- import_tasks: color.yml
