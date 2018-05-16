@@ -41,20 +41,21 @@ else
   git clone https://github.com/nargetdev/ansible.git "$ansible_dir"
  fi
 
-  if ! [ -x "$(command -v ansible)" ]; then
-   echo 'Ansible is not installed.  Getting it.'
-   sudo apt-get update
-   sudo apt-get install software-properties-common -y
+if ! [ -x "$(command -v ansible)" ]; then
+echo 'Ansible is not installed.  Getting it.'
+sudo apt-get update
+sudo apt-get install software-properties-common -y
 sudo apt-add-repository ppa:ansible/ansible -y
 sudo apt-get update
 sudo apt-get install ansible -y
- fi
+fi
 
 
 if ! [ -x "$(command -v code)" ]; then
    echo "GUI specified (via '-g' opt) [LOGIC TO INSTALL $GUI_EDITOR]" >&2
    exit 1
 else
+  echo "no gui"
   # Open the dir for viewing / actions..
   # code "$ansible_dir"
 fi

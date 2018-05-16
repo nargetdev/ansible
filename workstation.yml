@@ -9,8 +9,11 @@
   roles:
     # - common
     # - grav_web_dev
-    - gitter
-    - console-user
+    #- ansible-role-kaneka-dev
+    #  - gitter
+    #  - console-user
+    #  - system-specific-bandaid
+     - gui
   # - meshcandy_firmware_dev
   # - configure_mercurial
   # - ansible_developer
@@ -26,7 +29,6 @@
   # - role: remot3_fleet
   # - kylebebak.tmux
   # - codeine
-  #- gui
   #- ARM_devel
   #- MESHCANDY_DEV
   #- RPi_Meshcandy

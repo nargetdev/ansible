@@ -34,10 +34,12 @@
 
 # Get Oh My Fish
 # You can also use the 'args' form to provide the options.
-- name: Get oh my fish and only run when ~/.omf dir doesn't already exist.
-  shell: curl -L https://get.oh-my.fish | fish
-  args:
-    creates: ~/.local/share/omf
+- debug: msg="go get oh my fish.. ansible chokes on this"
+
+# - name: Get oh my fish and only run when ~/.omf dir doesn't already exist.
+#   shell: curl -L https://get.oh-my.fish | fish
+#   args:
+#     creates: ~/.local/share/omf
 
 
 - import_tasks: setup_zsh.yml
@@ -45,4 +47,4 @@
 
 - name: remap caps-lock to control
   shell: setxkbmap -option caps:ctrl_modifier
-  #when: os is ubuntu
+  when: ansible_os_family == "Debian"

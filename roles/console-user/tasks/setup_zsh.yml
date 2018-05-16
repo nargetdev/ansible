@@ -4,31 +4,62 @@
 - debug: msg="{{ lookup('env','USER') }}"
 
 - name: Changing the default shell to zsh for user "{{ lookup('env','USER') }}"
+  become: true
   user:
     name: "{{ lookup('env','USER') }}"
     shell: /bin/zsh 
 
 - debug: msg="OK shell updated to /bin/zsh changes take effect ON NEXT LOGIN"
 
-- name: Get oh my zsh and only run when ~/.omz dir doesn't already exist.
-  shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 
-- name: Backing up existing ~/.zshrc but only if ~/.oh-my-zsh isn't already present
-  action: shell if [ ! -d ~/.oh-my-zsh ]; then if [ -f ~/.zshrc ]; then mv ~/.zshrc{,.orig}; fi fi
+
+#### Coppied from https://github.com/veggiemonk/ansible-ohmyzsh/blob/master/tasks/main.yml
+- name: Installing Zsh and git
+  apt: pkg=zsh,git state=latest
+  register: installation
+
+- name: Backing up existing ~/.zshrc
+  shell: if [ -f ~/.zshrc ]; then mv ~/.zshrc ~/.zshrc.orig; fi
+  when: installation is success
+  become: no
+
+- name: Cloning  oh-my-zsh
+  git:
+    repo=https://github.com/robbyrussell/oh-my-zsh
+    dest=~/.oh-my-zsh
+  when: installation is success
+  register: cloning
+  become: no
+
+- name: Creating new ~/.zshrc
+  copy:
+    src=~/.oh-my-zsh/templates/zshrc.zsh-template
+    dest=~/.zshrc
+  when: cloning is success
+  become: no
+#### End of copied
+
+# - name: Get oh my zsh and only run when ~/.omz dir doesn't already exist.
+#   shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 
-- name: Installing oh-my-zsh (https://github.com/robbyrussell/oh-my-zsh)
-  action: git repo=https://github.com/robbyrussell/oh-my-zsh dest=~/.oh-my-zsh update=no
+# - name: Backing up existing ~/.zshrc but only if ~/.oh-my-zsh isn't already present
+#   action: shell if [ ! -d ~/.oh-my-zsh ]; then if [ -f ~/.zshrc ]; then mv ~/.zshrc{,.orig}; fi fi
 
 
-- name: set up oh-my-zsh via script
-  shell: wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O - | sh
+# - name: Installing oh-my-zsh (https://github.com/robbyrussell/oh-my-zsh)
+#   action: git repo=https://github.com/robbyrussell/oh-my-zsh dest=~/.oh-my-zsh update=no
 
-- name: default oh my zsh
-  shell: cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc    creates=~/.zshrc
 
-- name: set up shell
-  shell: echo "source ~/environment/dotfiles/zshrc" >> ~/.zshrc
+# - name: set up oh-my-zsh via script
+#   shell: wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O - | sh
+
+# - name: default oh my zsh
+#   shell: cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc    creates=~/.zshrc
+
+# - name: set up shell
+#   shell: echo "source ~/environment/dotfiles/zshrc" >> ~/.zshrc
+- debug: msg="TODO make this a line in file command"
 
 

@@ -1,4 +1,6 @@
 ---
+- debug: msg="Hello world"
+
 - include_tasks: debian_ancillary.yml
   when: ansible_os_family == "Debian"
 

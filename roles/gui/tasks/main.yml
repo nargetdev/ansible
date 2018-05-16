@@ -8,6 +8,14 @@
     - brew install --HEAD neovim
   when: ansible_os_family == "Darwin"
 
-- name: Link in tier 0 vimrc for spf13
-  # shell: echo "source ~/environment/dotfiles/vimrc_1" > ~/.vimrc.local
-  shell: echo "source ~/environment/dotfiles/vimrc" > ~/.vimrc.local
+# - name: Link in tier 0 vimrc for spf13
+#   # shell: echo "source ~/environment/dotfiles/vimrc_1" > ~/.vimrc.local
+#   shell: echo "source ~/environment/dotfiles/vimrc" > ~/.vimrc.local
+
+
+
+- name: fix that stupid ubuntu app switcher thing
+  apt: name=compizconfig-settings-manager state=present
+  when: ansible_os_family == "Debian"
+
+- debug: msg="ok run compizconfig from the launcher and remove"
