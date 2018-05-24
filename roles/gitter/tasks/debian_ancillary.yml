@@ -19,8 +19,8 @@
     creates: '{{ansible_env.HOME}}/.ssh/id_rsa'
   register: key_result
 
-- name: pipe key to clipboard UBUNTU
-  shell: cat ~/.ssh/id_rsa.pub | xclip -selection c
+# - name: pipe key to clipboard UBUNTU
+#   shell: cat ~/.ssh/id_rsa.pub | xclip -selection c
 
 - name: display key
   debug:
