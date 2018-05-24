@@ -19,6 +19,16 @@
     creates: '{{ansible_env.HOME}}/.ssh/id_rsa'
   register: key_result
 
+
+- name: use the ssh key
+  lineinfile: dest={{ item.file }} state=present line={{ item.line }}
+  with_items:
+    - { line: 'eval "$(ssh-agent -s)"', file: "{{lookup('env', 'HOME')}}/.bashrc" }
+    - { line: 'eval "$(ssh-agent -s)"', file: "{{lookup('env', 'HOME')}}/.zshrc" }
+    - { line: 'ssh-add ~/.ssh/id_rsa', file: "{{lookup('env', 'HOME')}}/.bashrc" }
+    - { line: 'ssh-add ~/.ssh/id_rsa', file: "{{lookup('env', 'HOME')}}/.zshrc" }
+    
+    
 # - name: pipe key to clipboard UBUNTU
 #   shell: cat ~/.ssh/id_rsa.pub | xclip -selection c
 

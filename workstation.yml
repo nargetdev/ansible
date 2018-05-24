@@ -10,8 +10,9 @@
     # - grav_web_dev
     #- ansible-role-kaneka-dev
     - gitter
-    - console-user
-    - gui
+    # - console-user
+    # - gui
+    - ansible-role-symmetry-developer
   # - meshcandy_firmware_dev
   # - configure_mercurial
   # - ansible_developer
