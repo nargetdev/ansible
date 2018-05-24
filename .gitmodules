@@ -13,3 +13,6 @@
 [submodule "roles/ansible-role-kaneka-dev"]
 	path = roles/ansible-role-kaneka-dev
 	url = git@github.com:KanekaLanguage/ansible-role-kaneka-dev.git
+[submodule "roles/ansible-role-symmetry-developer"]
+	path = roles/ansible-role-symmetry-developer
+	url = git@github.com:SymmetryLabs/ansible-role-symmetry-developer.git
