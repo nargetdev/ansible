@@ -16,3 +16,6 @@
 [submodule "roles/ansible-role-symmetry-developer"]
 	path = roles/ansible-role-symmetry-developer
 	url = git@github.com:SymmetryLabs/ansible-role-symmetry-developer.git
+[submodule "roles/fleet-commander"]
+	path = roles/fleet-commander
+	url = git@github.com:nargetdev/ansible-role-fleet-commander.git
