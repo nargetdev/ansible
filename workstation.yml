@@ -11,7 +11,7 @@
     # - ansible-role-kaneka-dev
     # - gitter
     - console-user
-    - ansible-role-symmetry-developer
+    # - ansible-role-symmetry-developer
         # - gui
   # - meshcandy_firmware_dev
   # - configure_mercurial
