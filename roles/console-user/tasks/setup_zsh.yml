@@ -15,20 +15,22 @@
 
 
 #### Coppied from https://github.com/veggiemonk/ansible-ohmyzsh/blob/master/tasks/main.yml
-- name: Installing Zsh and git
-  apt: pkg=zsh,git state=latest
-  register: installation
+
+# Only for ubuntu!
+# - name: Installing Zsh and git
+#   apt: pkg=zsh,git state=latest
+#   register: installation
 
 - name: Backing up existing ~/.zshrc
   shell: if [ -f ~/.zshrc ]; then mv ~/.zshrc ~/.zshrc.orig; fi
-  when: installation is success
+  # when: installation is success
   become: no
 
 - name: Cloning  oh-my-zsh
   git:
     repo=https://github.com/robbyrussell/oh-my-zsh
     dest=~/.oh-my-zsh
-  when: installation is success
+  # when: installation is success
   register: cloning
   become: no
 

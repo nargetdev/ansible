@@ -20,5 +20,9 @@
 
 
 - import_tasks: editor.yml
+  when: ansible_os_family == "Debian"
+
 
 - import_tasks: environment.yml
+
+- import_tasks: install_dotfiles.yml
