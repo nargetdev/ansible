@@ -26,3 +26,8 @@
 - import_tasks: environment.yml
 
 - import_tasks: install_dotfiles.yml
+# - import_tasks: environment.yml
+
+- debug: msg="use gnome-tweak-tool to adjust caps-lock"
+# - import_tasks: guided_tutorial.yml
+
