@@ -15,6 +15,7 @@
 
 
 - name: fix that stupid ubuntu app switcher thing
+  become: true
   apt: name=compizconfig-settings-manager state=present
   when: ansible_os_family == "Debian"
 

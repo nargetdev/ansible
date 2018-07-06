@@ -7,14 +7,13 @@
   #   CAREER_PATH: "/mnt/c/Users/narge/DEV/CAREER"
   # become: nateargetsinger
   roles:
-    # - ansible-role-symmetry-dev
     # - common
     # - grav_web_dev
     #- ansible-role-kaneka-dev
-    #  - gitter
-    #  - console-user
-    #  - system-specific-bandaid
-     - gui
+    - gitter
+    - console-user
+    # - gui
+    # - ansible-role-symmetry-developer
   # - meshcandy_firmware_dev
   # - configure_mercurial
   # - ansible_developer

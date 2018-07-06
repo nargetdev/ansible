@@ -4,5 +4,8 @@
 #ansible_become_method=sudo 
 #ansible_become_pass='{{ my_vaulted_sudo_pass }}'
 
+[ssh_connection]
+ssh_args = -oForwardAgent=yes
+
 [workstation]
 localhost ansible_connection=local

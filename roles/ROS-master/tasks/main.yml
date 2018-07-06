@@ -1,0 +1,75 @@
+---
+# tasks file for ROS-master
+- debug: msg="following tutorial steps to install ros melodic"
+
+
+- command: lsb_release -sc
+  register: ubuntu_distro
+
+- debug: msg="ubuntu distro is {{ubuntu_distro.stdout}}"
+
+# TRANSLATE the following...
+# sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+# ... TO ...
+- name: Set up your keys
+  apt_repository:
+    repo: "deb http://packages.ros.org/ros/ubuntu {{ubuntu_distro.stdout}} main"
+    state: present
+    filename: ros-latest
+  become: true
+
+
+# TRANSLATE ...
+# sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116
+# ... TO ...
+
+# TODO: Needs the 'adv' option so that it's not doing strict checking on public keys..
+# - name: Add an apt key by id from a keyserver
+#   apt_key:
+#     keyserver: hkp://ha.pool.sks-keyservers.net:80
+#     id: 421C365BD9FF1F717815A3895523BAEEB01FA116
+
+- name: apt key
+  shell: "apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116"
+  become: true
+
+
+# TRANSLATE ...
+# sudo apt-get update
+# sudo apt-get install ros-melodic-desktop
+# ... TO ...
+- name: Installation
+  apt:
+    name: ros-melodic-desktop-full
+    update_cache: yes
+  become: true
+
+# - name: Initialize rosdep
+#   command: rosdep init
+#   become: true
+#   creates: /etc/ros/rosdep
+
+# - name: run rosdep update NOT USING SUDO. Important detail..
+#   command: rosdep update
+#   creates: /etc/ros/rosdep
+
+
+
+- name: Environment setup
+  lineinfile: dest={{ item.file }} state=present line={{ item.line }}
+  with_items:
+    - { line: 'source /opt/ros/melodic/setup.bash', file: "{{lookup('env', 'HOME')}}/.bashrc" }
+
+
+# translate
+# sudo apt-get install python-rosinstall python-rosinstall-generator python-wstool build-essential
+- name: Dependencies for building packages
+  become: true
+  apt:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - python-rosinstall
+    - python-rosinstall-generator
+    - python-wstool
+    - build-essential

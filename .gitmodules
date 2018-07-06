@@ -1,24 +1,15 @@
-[submodule "roles/ansible-role-atom-packages"]
-	path = roles/ansible-role-atom-packages
-	url = https://github.com/gantsign/ansible-role-atom-packages.git
-[submodule "roles/ansible-role-atom"]
-	path = roles/ansible-role-atom
-	url = https://github.com/jdauphant/ansible-role-atom.git
 [submodule "roles/ansible-role-chrome"]
 	path = roles/ansible-role-chrome
 	url = https://github.com/cmprescott/ansible-role-chrome.git
 [submodule "roles/ansible-role-slack"]
 	path = roles/ansible-role-slack
 	url = https://github.com/wtanaka/ansible-role-slack.git
-[submodule "meshcandy_firmware_dev"]
-	path = meshcandy_firmware_dev
-	url = /Users/nateargetsinger/ansible/roles/meshcandy_firmware_dev
-[submodule "roles/meshcandy_firmware_dev"]
-	path = roles/meshcandy_firmware_dev
-	url = /Users/nateargetsinger/ansible/roles/meshcandy_firmware_dev
 [submodule "roles/ansible-role-kaneka-dev"]
 	path = roles/ansible-role-kaneka-dev
 	url = git@github.com:KanekaLanguage/ansible-role-kaneka-dev.git
-[submodule "roles/ansible-role-symmetry-dev"]
-	path = roles/ansible-role-symmetry-dev
+[submodule "roles/ansible-role-symmetry-developer"]
+	path = roles/ansible-role-symmetry-developer
 	url = git@github.com:SymmetryLabs/ansible-role-symmetry-developer.git
+[submodule "roles/fleet-commander"]
+	path = roles/fleet-commander
+	url = git@github.com:nargetdev/ansible-role-fleet-commander.git
