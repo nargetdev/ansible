@@ -22,3 +22,5 @@
 - import_tasks: editor.yml
 
 - import_tasks: environment.yml
+
+- import_tasks: thefuck.yml

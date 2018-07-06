@@ -1,0 +1,14 @@
+---
+# sudo apt update
+
+- name: apt get mercurial
+  apt: name={{ item }} state=present
+  become: true
+  with_items:
+    - python3-dev 
+    - python3-pip
+
+- name: get thefuck
+  pip:
+      executable: pip3 # not required. The explicit executable or a pathname to the executable to be used to run pip for a specific version of Python installed in the system. For example C(pip-3.3), if there are both Python 2.7 and 3.3 installations in the system and you want to run pip for the Python 3.3 installation. It cannot be specified together with the 'virtualenv' parameter (added in 2.1). By default, it will take the appropriate version for the python interpreter use by ansible, e.g. pip3 on python 3, and pip2 or pip on python 2.
+      name: thefuck
