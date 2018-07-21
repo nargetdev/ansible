@@ -36,6 +36,7 @@
   when: aliases
 
 
+
 - name: Check if tmux v2.0 is installed
   raw: echo `tmux -V | cut -d' ' -f2`'<'2.0 | bc -l
   register: tmux_version

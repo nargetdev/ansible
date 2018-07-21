@@ -1,9 +1,3 @@
-[submodule "roles/ansible-role-atom-packages"]
-	path = roles/ansible-role-atom-packages
-	url = https://github.com/gantsign/ansible-role-atom-packages.git
-[submodule "roles/ansible-role-atom"]
-	path = roles/ansible-role-atom
-	url = https://github.com/jdauphant/ansible-role-atom.git
 [submodule "roles/ansible-role-chrome"]
 	path = roles/ansible-role-chrome
 	url = https://github.com/cmprescott/ansible-role-chrome.git

@@ -39,31 +39,38 @@
       #- { name: rbenv }
       #- { name: ruby-build }
     homebrew_cask_apps:
+      - { name: visual-studio-code }
       - { name: google-chrome }
       - { name: java }
-      - { name: skype }
-      # - { name: slack }
-      - { name: atom }
+      # - { name: skype }
+      - { name: slack }
+      # - { name: atom }
       - { name: caffeine }
-      - { name: alfred }
+      # - { name: alfred }
       - { name: iterm2 }
       - { name: nvalt }
       - { name: processing }
       - { name: pd }
       - { name: pd-extended }
-      - { name: gitkraken }
+      # - { name: gitkraken }
+      - { name: tower }
       - { name: arduino }
       - { name: spotify }
       # - { name: fusion360 }
-      - { name: visual-studio-code }
-    new_homebrew_cask_apps:
-      - { name: sublime-text }
       - { name: clion }
+      - { name: teamviewer }
+      - { name: java8 }
+      - { name: adobe-creative-cloud }
+      - { name: dropbox }
+
+    new_homebrew_cask_apps:
+      - { name: wireshark }
+
   tasks:
   - debug:
       msg: "System {{ item }}"
     with_items: "{{homebrew_taps}}"
-    when: False
+    when: True
 
   # Tap.
   - name: Ensure configured taps are tapped.
@@ -89,7 +96,7 @@
       state: present
       install_options: "appdir=/Applications"
     with_items: "{{ homebrew_cask_apps }}"
-    when: false
+    when: False
 
   - name: NEW CASKS WOOT WOOT!
     homebrew_cask:

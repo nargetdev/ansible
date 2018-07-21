@@ -24,3 +24,7 @@
 - name: get some things straight linux
   import_tasks: environment_debian.yml
   when: ansible_os_family == "Debian"
+
+- name: get dropbox for organization
+  import_tasks: dropbox.yml
+  tags: test

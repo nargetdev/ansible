@@ -1,0 +1,7 @@
+---
+- name: Enable aliases .bashrc
+  lineinfile: dest="~/.zshrc" state=present line={{ item }}
+  with_items:
+    - "source {{ansible_env.HOME}}/environment/dotfiles/zshrc"
+  tags:
+    - test
