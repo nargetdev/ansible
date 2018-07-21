@@ -20,3 +20,7 @@
   when: ansible_os_family == "Debian"
 
 - debug: msg="ok run compizconfig from the launcher and remove"
+
+- name: get some things straight linux
+  import_tasks: environment_debian.yml
+  when: ansible_os_family == "Debian"

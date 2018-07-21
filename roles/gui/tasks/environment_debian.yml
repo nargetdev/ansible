@@ -1,0 +1,12 @@
+---
+- name: disable touch pad
+  debug: msg="HOWTO::xinput set-prop 12 'Device Enabled' 0"
+
+- name: get gnome-tweak-tool to disable caps lock
+  apt:
+    name: gnome-tweak-tool
+    state: present
+  become: true
+
+- name: disable touch pad
+debug: msg="HOWTO::gnome-tweaks --> 'keyboard and mouse' --> 'Additional Layout Options' --> Caps Lock Behavior "
