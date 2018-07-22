@@ -10,3 +10,9 @@
 
 - name: disable touch pad
 debug: msg="HOWTO::gnome-tweaks --> 'keyboard and mouse' --> 'Additional Layout Options' --> Caps Lock Behavior "
+
+
+# IN ubuntu 18.04 there is an issue where a conflicting SSL key in the JDK cuases gradle's build to fail fetching resources.
+# The following is a fix:
+# sudo apt-get remove --purge openjdk* java-common default-jdk
+# sudo apt-get autoremove --purge
